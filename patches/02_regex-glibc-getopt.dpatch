@@ -1,0 +1,120 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## regex-glibc-getopt.patch.dpatch by Ryan Finnie <ryan@finnie.org>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Add regular expression support, and use glibc built-in popt
+
+@DPATCH@
+
+This patch contains two modifications.  First, grepcidr.c is modified
+to use glibc's built-in getopt, rather than the getopt provided with
+the tarball.  Second, regular expression support is added.  A
+description of the regex patch by the original patch author is
+provided below.
+
+These two patches were combined because patch(1) does not seem to be
+able to handle the two "conflicting" changes when separated.
+
+----------------------------------------------------------------------
+
+Date: Fri, 29 Apr 2005 19:44:05 -0700
+From: Jeff Makey <jeff@sdsc.edu>
+
+The patch included below adds regular expression processing to allow
+grepcidr to find IP addresses anywhere on the input.  Tested against
+the README file shipped with grepcidr-1.3, the first command below
+shows one line of output and the second correctly shows none:
+
+ grepcidr 192.168.0.0/20 README
+ grepcidr 192.168.16.0/20 README
+
+My changes work on Red Hat Linux 9.0, Sun Solaris, SGI IRIX, and IBM
+AIX.  It should be possible to use regular expression processing and
+avoid calling sscanf() in the ip_to_uint() function, but it may not be
+worth the effort.
+
+Note that for a number the source lines the only thing I changed is
+the indenting.  After applying the patch use "diff -w" to see just the
+coding changes.
+
+Thanks for writing grepcidr.  Feel free to include this change in the
+next release.
+
+                          :: Jeff Makey
+                             jeff@sdsc.edu
+
+diff -ruN grepcidr-1.3-orig/grepcidr.c grepcidr-1.3/grepcidr.c
+--- grepcidr-1.3-orig/grepcidr.c	2005-04-23 15:00:16.000000000 -0700
++++ grepcidr-1.3/grepcidr.c	2006-10-05 01:42:24.000000000 -0700
+@@ -25,7 +25,8 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+-#include "getopt.h"
++#include <getopt.h>
++#include <regex.h>
+ 
+ #define EXIT_OK		0
+ #define EXIT_NOMATCH	1
+@@ -164,6 +165,7 @@
+ 	char line[MAXFIELD];
+ 	int foundopt;
+ 	int anymatch = 0;			/* did anything match? for exit code */
++	static regex_t preg;			/* compiled regular expression for IPs */
+ 
+ 	if (argc == 1)
+ 	{
+@@ -272,22 +274,35 @@
+ 		}
+ 	}
+ 	
++	/* Compile the regular expression for matching IP addresses */
++	if (regcomp(&preg, "[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+", REG_EXTENDED) != 0)
++	{
++		(void)fputs("regcomp() failed\n", stderr);
++		return EXIT_ERROR;
++	}
++
+ 	/* Match IPs from input stream to network patterns */
+ 	while (fgets(line, sizeof(line), inp_stream))
+ 	{
+ 		struct netspec key;
+-		if ((key.min=ip_to_uint(line)))
++		regoff_t offset;
++		regmatch_t pmatch;
++		for (offset = 0; regexec(&preg, &line[offset], 1, &pmatch, 0) == 0; offset += pmatch.rm_eo)
+ 		{
+-			int match = 0;
+-			if (bsearch(&key, array, patterns, sizeof(struct netspec), netsearch))
+-				match = 1;
+-			if (invert ^ match)
++			if ((key.min=ip_to_uint(&line[offset + pmatch.rm_so])))
+ 			{
+-				anymatch = 1;
+-				if (counting)
+-					counting++;
+-				else
+-					printf("%s", line);
++				int match = 0;
++				if (bsearch(&key, array, patterns, sizeof(struct netspec), netsearch))
++					match = 1;
++				if (invert ^ match)
++				{
++					anymatch = 1;
++					if (counting)
++						counting++;
++					else
++						printf("%s", line);
++					break;
++				}
+ 			}
+ 		}
+ 	}
+@@ -297,6 +312,7 @@
+ 		fclose(inp_stream);
+ 	if (array)
+ 		free(array);
++	regfree(&preg);
+ 
+ 	if (counting)
+ 		printf("%u\n", counting-1);
