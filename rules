@@ -38,7 +38,7 @@ clean: unpatch
 	dh_testroot
 	rm -f build-stamp
 
-	-$(MAKE) clean
+	$(MAKE) clean
 	rm -f grepcidr.1
 
 	dh_clean 
