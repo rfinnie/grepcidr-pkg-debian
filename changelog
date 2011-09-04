@@ -1,3 +1,17 @@
+grepcidr (1.3-5) unstable; urgency=low
+
+  * Housekeeping release (no user-visible changes)
+  * Switch to dpkg-source 3.0 (quilt) format
+  * Converted debian/rules to unified dh
+  * Bumped debian/compat to 7
+  * Adjusted debian/copyright (removed '(C)')
+  * Added debian/watch file
+  * Removed Build-Depends: docbook-to-man; debian/grepcidr.1 is now 
+    pre-compiled (with included source and README for manual 
+    regeneration)
+
+ -- Ryan Finnie <ryan@finnie.org>  Sun, 04 Sep 2011 13:59:04 -0700
+
 grepcidr (1.3-4) unstable; urgency=low
 
   * Dm-Upload-Allowed changed to XS-Dm-Upload-Allowed so it may be exported

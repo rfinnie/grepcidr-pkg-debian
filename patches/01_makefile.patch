@@ -1,10 +1,4 @@
-#! /bin/sh /usr/share/dpatch/dpatch-run
-## makefile.patch.dpatch by Ryan Finnie <ryan@finnie.org>
-##
-## All lines beginning with `## DP:' are a description of the patch.
-## DP: Clean up tarball Makefile
-
-@DPATCH@
+## makefile.patch by Ryan Finnie <ryan@finnie.org>
 
 diff -ruN grepcidr-1.3.orig/Makefile grepcidr-1.3/Makefile
 --- grepcidr-1.3.orig/Makefile	2005-04-19 20:19:14.000000000 -0700

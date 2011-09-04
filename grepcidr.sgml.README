@@ -1,0 +1,7 @@
+The manpage grepcidr.1 has been pre-compiled from grepcidr.sgml to 
+remove the need for docbook-to-man during each build.  If a change is 
+needed to the manpage, edit it, install docbook-to-man, and run:
+
+    docbook-to-man debian/grepcidr.sgml > debian/grepcidr.1
+
+and ship the resulting files.

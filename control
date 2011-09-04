@@ -2,8 +2,9 @@ Source: grepcidr
 Section: net
 Priority: optional
 Maintainer: Ryan Finnie <ryan@finnie.org>
-Build-Depends: debhelper (>= 5), dpatch, docbook-to-man
-Standards-Version: 3.7.2
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.9.2
+Homepage: http://www.pc-tools.net/unix/grepcidr/
 XS-Dm-Upload-Allowed: yes
 
 Package: grepcidr

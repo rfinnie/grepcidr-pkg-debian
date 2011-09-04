@@ -1,10 +1,4 @@
-#! /bin/sh /usr/share/dpatch/dpatch-run
-## regex-glibc-getopt.patch.dpatch by Ryan Finnie <ryan@finnie.org>
-##
-## All lines beginning with `## DP:' are a description of the patch.
-## DP: Add regular expression support, and use glibc built-in popt
-
-@DPATCH@
+## regex-glibc-getopt.patch by Ryan Finnie <ryan@finnie.org>
 
 This patch contains two modifications.  First, grepcidr.c is modified
 to use glibc's built-in getopt, rather than the getopt provided with
