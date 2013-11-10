@@ -3,9 +3,10 @@ Section: net
 Priority: optional
 Maintainer: Ryan Finnie <ryan@finnie.org>
 Build-Depends: debhelper (>= 7.0.50~)
-Standards-Version: 3.9.2
+Standards-Version: 3.9.4
 Homepage: http://www.pc-tools.net/unix/grepcidr/
-XS-Dm-Upload-Allowed: yes
+Vcs-Browser: https://code.launchpad.net/~fo0bar/grepcidr/grepcidr-pkg-debian
+Vcs-Bzr: http://bazaar.launchpad.net/~fo0bar/grepcidr/grepcidr-pkg-debian
 
 Package: grepcidr
 Architecture: any

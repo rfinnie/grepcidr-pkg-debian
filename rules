@@ -4,8 +4,15 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+CPPFLAGS:=$(shell dpkg-buildflags --get CPPFLAGS)
+CFLAGS:=$(shell dpkg-buildflags --get CFLAGS)
+LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS)
+
 %:
 	dh $@ 
+
+override_dh_auto_build:
+	$(MAKE) CPPFLAGS="$(CPPFLAGS)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)"
 
 override_dh_auto_install:
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/grepcidr PREFIX=/usr
