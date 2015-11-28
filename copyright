@@ -25,15 +25,5 @@ Copyright: 2004-2005 Jem E. Berkes
 On Debian systems, the complete text of the GNU General
 Public License can be found in `/usr/share/common-licenses/GPL-2'.
 
-getopt.c is Copyright 1987-1996, 1998-2002,
-Free Software Foundation, Inc. and is licensed under the GPL, see above.
-
-getopt.h is Copyright 1989-1994, 1996-1999, 2001,
-Free Software Foundation, Inc. and is licensed under the GPL, see above.
-
-getopt.c and getopt.h are not used in Debian's grepcidr binary packages
-(glibc built-in getopt is used instead), but are nevertheless retained in
-the source packaging.
-
 The Debian packaging is 2006, Ryan Finnie <ryan@finnie.org> and
 is licensed under the GPL, see above.

@@ -1,34 +1,13 @@
-## makefile.patch by Ryan Finnie <ryan@finnie.org>
-
-Index: grepcidr-1.3/Makefile
+Index: grepcidr-2.0/Makefile
 ===================================================================
---- grepcidr-1.3.orig/Makefile	2005-04-20 03:19:14.000000000 +0000
-+++ grepcidr-1.3/Makefile	2013-11-10 18:10:38.595521231 +0000
-@@ -3,21 +3,18 @@
- #
+--- grepcidr-2.0.orig/Makefile
++++ grepcidr-2.0/Makefile
+@@ -15,7 +15,7 @@ LDFLAGS=
+ all: grepcidr
  
- # Set to where you'd like grepcidr installed
--INSTALLDIR=/usr/local/bin
--
--# Set to your favorite C compiler and flags
--CC=gcc
--CFLAGS=-s -O3 -Wall -pedantic
--
-+PREFIX=/usr/local
-+BIN=$(PREFIX)/bin
- # End of settable values
+ grepcidr: grepcidr.o
+-	$(CC) $(CFLAGS) grepcidr.o -o grepcidr
++	$(CC) $(CFLAGS) grepcidr.o -o grepcidr $(LDFLAGS)
  
--grepcidr:
--	$(CC) $(CFLAGS) -o grepcidr grepcidr.c getopt.c
-+grepcidr: grepcidr.c
-+	$(CC) $(CPPFLAGS) $(CFLAGS) -o grepcidr $(LDFLAGS) grepcidr.c
+ doc: grepcidr.1
  
- all:	grepcidr
- 
- install:	grepcidr
--	cp grepcidr $(INSTALLDIR)
-+	install -d $(DESTDIR)$(BIN)
-+	install ./grepcidr $(DESTDIR)$(BIN)
- 
- clean:
- 	rm -f grepcidr *.o
