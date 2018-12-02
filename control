@@ -2,8 +2,8 @@ Source: grepcidr
 Section: net
 Priority: optional
 Maintainer: Ryan Finnie <ryan@finnie.org>
-Build-Depends: debhelper (>= 7.0.50~)
-Standards-Version: 3.9.6
+Build-Depends: debhelper (>= 9)
+Standards-Version: 4.2.1
 Homepage: http://www.pc-tools.net/unix/grepcidr/
 Vcs-Browser: https://github.com/rfinnie/grepcidr-pkg-debian
 Vcs-Git: https://github.com/rfinnie/grepcidr-pkg-debian
@@ -11,7 +11,7 @@ Vcs-Git: https://github.com/rfinnie/grepcidr-pkg-debian
 Package: grepcidr
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Filter IP addresses matching IPv4 CIDR/network specification
+Description: Filter IP addresses matching IPv4/IPv6 CIDR/network specification
  grepcidr can be used to filter a list of IP addresses against one or
  more Classless Inter-Domain Routing (CIDR) specifications, or
  arbitrary networks specified by an address range. As with grep, there
