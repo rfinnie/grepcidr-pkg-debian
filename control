@@ -5,8 +5,8 @@ Maintainer: Ryan Finnie <ryan@finnie.org>
 Build-Depends: debhelper (>= 9)
 Standards-Version: 4.2.1
 Homepage: http://www.pc-tools.net/unix/grepcidr/
-Vcs-Browser: https://github.com/rfinnie/grepcidr-pkg-debian
-Vcs-Git: https://github.com/rfinnie/grepcidr-pkg-debian
+Vcs-Browser: https://salsa.debian.org/rfinnie/grepcidr-pkg-debian
+Vcs-Git: https://salsa.debian.org/rfinnie/grepcidr-pkg-debian.git
 
 Package: grepcidr
 Architecture: any
